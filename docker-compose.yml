@@ -5,5 +5,8 @@ services:
     environment:
       - ALLOW
       - REMOTE_URL
+    labels:
+      - convox.port.443.protocol=tls
     ports:
-      - 6933:3000
+      - 80:3000
+      - 443:3000
