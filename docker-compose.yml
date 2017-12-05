@@ -1,0 +1,9 @@
+version: 2
+services:
+  dmz:
+    build: .
+    environment:
+      - ALLOW
+      - REMOTE_URL
+    ports:
+      - 6933:3000
