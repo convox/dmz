@@ -32,22 +32,6 @@ func run() error {
 	if err := http.ListenAndServe(":3000", p); err != nil {
 		return err
 	}
-	// fmt.Printf("allow = %+v\n", allow)
-
-	// ln, err := net.Listen("tcp", ":3000")
-	// if err != nil {
-	//   return err
-	// }
-
-	// for {
-	//   cn, err := ln.Accept()
-	//   if err != nil {
-	//     fmt.Fprintf(os.Stderr, "accept error: %s\n", err)
-	//     continue
-	//   }
-
-	//   go handleError(handleConnection(cn))
-	// }
 
 	return nil
 }
@@ -102,45 +86,3 @@ func (p *proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	p.proxy.ServeHTTP(w, r)
 }
-
-// func handleError(err error) {
-//   if err != nil {
-//     fmt.Fprintf(os.Stderr, "error: %s\n", err)
-//   }
-// }
-
-// func handleConnection(in net.Conn) error {
-//   out, err := net.Dial("tcp", os.Getenv("REMOTE_ADDR"))
-//   if err != nil {
-//     return err
-//   }
-
-//   fmt.Printf("proxy: %s <-> %s\n", in.RemoteAddr(), out.RemoteAddr())
-
-//   return pipe(in, out)
-// }
-
-// func pipe(a, b io.ReadWriteCloser) error {
-//   defer a.Close()
-//   defer b.Close()
-
-//   ch := make(chan error)
-
-//   go halfPipe(a, b, ch)
-//   go halfPipe(b, a, ch)
-
-//   if err := <-ch; err != nil {
-//     return err
-//   }
-
-//   if err := <-ch; err != nil {
-//     return err
-//   }
-
-//   return nil
-// }
-
-// func halfPipe(w io.Writer, r io.Reader, ch chan error) {
-//   _, err := io.Copy(w, r)
-//   ch <- err
-// }
